@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test2
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test2
+  strategy:
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 100%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: test2
+        io.portainer.kubernetes.application.name: test2
+    spec:
+      containers:
+        - image: nginx:latest
+          imagePullPolicy: Always
+          name: test2
+          resources: {
+                    "limits": {
+                    "cpu": "500m",
+                    "memory": "524288000"
+                  },
+                  "requests": {
+                    "cpu": "500m",
+                    "memory": "524288000"
+                    }
+                   }
